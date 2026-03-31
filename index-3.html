@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sazaki Arts - Anime & Cartoon Artwork Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07060f;--surface:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.09);
+  --pink:#e040a0;--violet:#8b3cf7;--blue:#3b82f6;--red:#dc2626;
+  --text:#f1f0f8;--muted:#8b8b9e;
+  --glow-pink:rgba(224,64,160,0.25);--glow-violet:rgba(139,60,247,0.25);--glow-blue:rgba(59,130,246,0.2);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;overflow-x:hidden}
+
+/* PARTICLES */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.45}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(0.88);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+
+/* HEADER */
+#header{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 1.5rem;transition:background 0.3s,box-shadow 0.3s}
+#header.scrolled{background:rgba(7,6,15,0.88);backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--border)}
+.header-container{max-width:1400px;margin:0 auto;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:0.65rem;text-decoration:none}
+.logo-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--pink),var(--violet));display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;color:white;animation:logoPulse 3s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 18px var(--glow-pink)}50%{box-shadow:0 0 32px rgba(224,64,160,0.6),0 0 60px rgba(139,60,247,0.3)}}
+.logo-text{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;letter-spacing:0.08em}
+.desktop-nav{display:none;align-items:center;gap:2rem}
+@media(min-width:768px){.desktop-nav{display:flex}}
+.nav-link{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:600;letter-spacing:0.05em;transition:color 0.2s;position:relative}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--violet));transition:width 0.3s;border-radius:2px}
+.nav-link:hover{color:var(--text)}.nav-link:hover::after{width:100%}
+.subscribe-btn{display:flex;align-items:center;gap:0.4rem;padding:0.5rem 1.1rem;background:var(--red);color:white;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:700;transition:background 0.2s,box-shadow 0.2s,transform 0.15s}
+.subscribe-btn:hover{background:#b91c1c;box-shadow:0 0 20px rgba(220,38,38,0.5);transform:translateY(-1px)}
+.mobile-menu-btn{display:flex;background:none;border:none;color:var(--text);cursor:pointer;padding:0.4rem}
+@media(min-width:768px){.mobile-menu-btn{display:none}}
+.mobile-menu-btn .close-icon{display:none}.mobile-menu-btn.active .menu-icon{display:none}.mobile-menu-btn.active .close-icon{display:block}
+.mobile-nav{display:none;flex-direction:column;gap:0.25rem;padding:1rem 0 1.5rem;border-top:1px solid var(--border)}
+.mobile-nav.active{display:flex}.mobile-nav .nav-link{padding:0.65rem 0;font-size:1rem}.mobile-nav .subscribe-btn{margin-top:0.5rem;align-self:flex-start}
+
+/* GLOW */
+.glow-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(80px)}
+.glow-1{width:500px;height:500px;top:-100px;left:-100px;background:var(--glow-pink)}
+.glow-2{width:600px;height:600px;bottom:-150px;right:-150px;background:var(--glow-violet)}
+.glow-3{width:700px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--glow-blue)}
+
+/* HERO */
+.hero-section{position:relative;min-height:100vh;display:flex;align-items:center;padding:100px 1.5rem 5rem;overflow:hidden}
+.hero-container{max-width:1400px;margin:0 auto;width:100%;position:relative;z-index:1}
+.hero-title{text-align:center;margin-bottom:2rem}
+.main-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,14vw,9rem);line-height:0.95;letter-spacing:0.04em;background:linear-gradient(135deg,var(--pink) 0%,var(--violet) 50%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:titleGlow 4s ease-in-out infinite}
+@keyframes titleGlow{0%,100%{filter:drop-shadow(0 0 30px var(--glow-pink))}50%{filter:drop-shadow(0 0 60px rgba(139,60,247,0.6))}}
+.subtitle{font-size:clamp(0.9rem,2.5vw,1.2rem);color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.75rem}
+.hero-stats{display:flex;justify-content:center;gap:2.5rem;margin:1.5rem 0 2.5rem;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-number{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--pink);line-height:1;text-shadow:0 0 20px var(--glow-pink)}
+.stat-label{font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem}
+
+/* CAROUSEL */
+.carousel-wrapper{position:relative;margin:0 auto;max-width:560px}
+.carousel{overflow:hidden;border-radius:1.25rem}
+.carousel-track{display:flex;transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)}
+.carousel-slide{flex:0 0 100%;padding:0.5rem}
+.artwork-card{border-radius:1rem;overflow:hidden;background:var(--surface);border:1px solid var(--border);box-shadow:0 0 0 1px rgba(255,255,255,0.04),0 20px 60px rgba(0,0,0,0.6),0 0 40px var(--glow-violet);transition:box-shadow 0.3s;transform-style:preserve-3d;will-change:transform;cursor:pointer}
+.artwork-card img{width:100%;height:400px;object-fit:cover;display:block;border-radius:1rem}
+@media(min-width:768px){.artwork-card img{height:480px}}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid var(--border);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background 0.2s,box-shadow 0.2s,transform 0.15s}
+.carousel-btn:hover{background:rgba(255,255,255,0.2);box-shadow:0 0 20px var(--glow-violet);transform:translateY(-50%) scale(1.12)}
+.carousel-btn:active{transform:translateY(-50%) scale(0.95) !important}
+.prev-btn{left:-24px}.next-btn{right:-24px}
+.carousel-dots{display:flex;justify-content:center;gap:6px;margin-top:1.25rem}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background 0.3s,transform 0.3s;cursor:pointer}
+.dot.active{background:var(--violet);transform:scale(1.4)}
+.scroll-hint{text-align:center;color:var(--muted);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:1.5rem;opacity:0.6;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* SECTION COMMONS */
+.section-container{max-width:1200px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-header h2{font-family:'Montserrat',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-0.02em}
+.section-header p{color:var(--muted);margin-top:0.5rem}
+.section-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--pink),var(--violet));border-radius:2px;margin:0.75rem auto 1rem}
+
+/* STORY */
+.story-section{padding:5rem 1.5rem;position:relative;overflow:hidden}
+.story-card{max-width:900px;margin:0 auto;background:var(--surface);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:2rem;padding:2.5rem 2rem;box-shadow:0 0 0 1px rgba(224,64,160,0.08),0 20px 80px rgba(224,64,160,0.1),inset 0 1px 0 rgba(255,255,255,0.06);position:relative;overflow:hidden}
+.story-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--violet),var(--blue))}
+.story-inner{display:grid;gap:2rem}
+@media(min-width:700px){.story-inner{grid-template-columns:1fr 1fr;align-items:center}}
+.story-text h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:0.04em;background:linear-gradient(135deg,var(--pink),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem}
+.story-text p{color:#c8c7d8;line-height:1.85;font-size:1rem;margin-bottom:0.85rem}
+.story-milestones{display:flex;flex-direction:column;gap:0.9rem}
+.milestone{display:flex;align-items:center;gap:1rem;padding:0.9rem 1.1rem;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:1rem;transition:background 0.3s,border-color 0.3s,transform 0.3s}
+.milestone:hover{background:rgba(255,255,255,0.07);border-color:rgba(139,60,247,0.3);transform:translateX(4px)}
+.milestone-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem}
+.m1{background:linear-gradient(135deg,#ef4444,#f97316)}.m2{background:linear-gradient(135deg,#a855f7,#ec4899)}.m3{background:linear-gradient(135deg,#3b82f6,#06b6d4)}.m4{background:linear-gradient(135deg,#f59e0b,#ef4444)}
+.milestone-text strong{display:block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.92rem}
+.milestone-text span{color:var(--muted);font-size:0.8rem}
+
+/* VIDEOS */
+.videos-section{padding:6rem 1.5rem;position:relative}
+.video-carousel-wrapper{position:relative;overflow:hidden}
+.video-carousel{overflow:hidden}
+.video-track{display:flex;transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)}
+.video-slide{flex:0 0 100%;padding:0 0.75rem}
+@media(min-width:640px){.video-slide{flex:0 0 50%}}
+@media(min-width:1024px){.video-slide{flex:0 0 33.333%}}
+.video-card{position:relative;aspect-ratio:9/16;border-radius:1rem;overflow:hidden;background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 40px rgba(0,0,0,0.5);transition:box-shadow 0.3s,border-color 0.3s,transform 0.3s;cursor:pointer}
+.video-card:hover{border-color:rgba(139,60,247,0.5);box-shadow:0 20px 60px var(--glow-violet),0 0 0 1px rgba(139,60,247,0.3);transform:translateY(-6px)}
+.video-card img{width:100%;height:100%;object-fit:cover}
+.video-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.2) 50%,transparent 100%)}
+.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:var(--red);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(220,38,38,0.6);transition:transform 0.2s,box-shadow 0.2s;z-index:5}
+.video-card:hover .play-btn{transform:translate(-50%,-50%) scale(1.15);box-shadow:0 8px 32px rgba(220,38,38,0.8)}
+.video-iframe{display:none;position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-card.playing img,.video-card.playing .video-overlay,.video-card.playing .play-btn{display:none}
+.video-card.playing .video-iframe{display:block}
+.video-prev-btn{position:absolute;top:50%;left:-16px;transform:translateY(-50%)}
+.video-next-btn{position:absolute;top:50%;right:-16px;transform:translateY(-50%)}
+.video-cta{text-align:center;margin-top:3rem}
+
+/* BUTTONS */
+.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8rem 1.75rem;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.95rem;text-decoration:none;transition:transform 0.15s,box-shadow 0.2s,background 0.2s;cursor:pointer;border:none;white-space:nowrap;position:relative;overflow:hidden}
+.cta-btn:hover{transform:translateY(-2px)}.cta-btn:active{transform:scale(0.96) !important}
+.btn-youtube{background:var(--red);color:white}.btn-youtube:hover{box-shadow:0 8px 30px rgba(220,38,38,0.55)}
+.btn-kofi{background:linear-gradient(90deg,#2563eb,#06b6d4);color:white}.btn-kofi:hover{box-shadow:0 8px 30px rgba(37,99,235,0.55)}
+.btn-primary{background:linear-gradient(90deg,#2563eb,#06b6d4);color:white}.btn-primary:hover{box-shadow:0 8px 30px rgba(37,99,235,0.5)}
+.btn-ghost{background:rgba(255,255,255,0.08);color:white;border:1px solid var(--border)}.btn-ghost:hover{background:rgba(255,255,255,0.14)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);transform:scale(0);animation:rippleAnim 0.5s linear;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+/* SHOP */
+.shop-section{position:relative;padding:6rem 1.5rem;overflow:hidden}
+.shop-card{background:var(--surface);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:2rem;padding:2.5rem 1.75rem;box-shadow:0 0 0 1px rgba(59,130,246,0.1),0 20px 80px rgba(59,130,246,0.15),inset 0 1px 0 rgba(255,255,255,0.06);max-width:800px;margin:0 auto}
+.shop-embed{border-radius:1rem;overflow:hidden;border:1px solid var(--border);margin-bottom:1.75rem;background:rgba(0,0,0,0.25)}
+.shop-embed iframe{width:100%;height:550px;border:none;display:block}
+.shop-actions{display:flex;flex-direction:column;gap:0.85rem}
+@media(min-width:500px){.shop-actions{flex-direction:row;justify-content:center}}
+
+/* ABOUT */
+.about-section{padding:6rem 1.5rem}
+.about-card{background:var(--surface);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:2rem;padding:2.5rem 1.75rem;box-shadow:0 0 0 1px rgba(139,60,247,0.08),0 20px 80px rgba(139,60,247,0.12),inset 0 1px 0 rgba(255,255,255,0.05)}
+.about-intro{text-align:center;max-width:700px;margin:0 auto 3rem}
+.about-intro p{font-size:clamp(1rem,2vw,1.15rem);color:#c8c7d8;line-height:1.85}
+.about-features h3{font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,1.75rem);font-weight:800;text-align:center;margin-bottom:2rem}
+.features-grid{display:grid;gap:1.25rem;margin-bottom:3rem}
+@media(min-width:640px){.features-grid{grid-template-columns:repeat(3,1fr)}}
+.feature-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.5rem 1rem;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:1.25rem;transition:background 0.3s,border-color 0.3s,box-shadow 0.3s,transform 0.3s}
+.feature-card:hover{background:rgba(255,255,255,0.07);border-color:rgba(139,60,247,0.3);box-shadow:0 8px 30px var(--glow-violet);transform:translateY(-4px)}
+.feature-icon{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.icon-1{background:linear-gradient(135deg,#ef4444,#f97316);box-shadow:0 0 20px rgba(239,68,68,0.4)}
+.icon-2{background:linear-gradient(135deg,#a855f7,#ec4899);box-shadow:0 0 20px rgba(168,85,247,0.4)}
+.icon-3{background:linear-gradient(135deg,#3b82f6,#06b6d4);box-shadow:0 0 20px rgba(59,130,246,0.4)}
+.feature-card h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.4rem}
+.feature-card p{color:var(--muted);font-size:0.85rem}
+.about-collab{border-top:1px solid var(--border);padding-top:2.5rem;margin-bottom:1.5rem;text-align:center}
+.about-collab h3{font-family:'Montserrat',sans-serif;font-size:clamp(1.4rem,3vw,1.75rem);font-weight:800;margin-bottom:1rem}
+.about-collab p{font-size:clamp(0.95rem,2vw,1.1rem);color:#c8c7d8;line-height:1.75;max-width:600px;margin:0 auto}
+.about-contact{display:flex;align-items:center;justify-content:center;gap:0.6rem;padding-top:1.5rem}
+.about-contact a{color:var(--violet);text-decoration:underline;font-size:1rem;transition:color 0.2s}
+.about-contact a:hover{color:#c084fc}
+
+/* CTA */
+.cta-section{position:relative;padding:7rem 1.5rem;overflow:hidden}
+.cta-container{max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,6rem);letter-spacing:0.04em;line-height:1.05;margin-bottom:2.5rem}
+.cta-title span{display:block}
+.gradient-text{background:linear-gradient(90deg,var(--pink),var(--violet),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-buttons{display:flex;flex-direction:column;gap:1rem;align-items:center;margin-bottom:3rem}
+@media(min-width:480px){.cta-buttons{flex-direction:row;justify-content:center}}
+.cta-btn.large{padding:1rem 2.25rem;font-size:1rem}
+.social-section{margin-top:3rem}
+.social-text{color:var(--muted);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.25rem}
+.social-links{display:flex;flex-wrap:wrap;justify-content:center;gap:0.75rem}
+.social-btn{display:flex;align-items:center;gap:0.45rem;padding:0.6rem 1.25rem;background:rgba(255,255,255,0.07);color:var(--text);border:1px solid var(--border);border-radius:8px;text-decoration:none;font-size:0.875rem;font-weight:600;transition:background 0.2s,transform 0.15s;position:relative;overflow:hidden}
+.social-btn:hover{background:rgba(255,255,255,0.13);transform:translateY(-2px)}
+
+/* FOOTER */
+.footer{background:rgba(0,0,0,0.6);backdrop-filter:blur(20px);border-top:1px solid var(--border)}
+.footer-container{max-width:1200px;margin:0 auto;padding:3rem 1.5rem 2rem}
+.footer-grid{display:grid;gap:2.5rem;margin-bottom:2.5rem}
+@media(min-width:640px){.footer-grid{grid-template-columns:repeat(3,1fr)}}
+.footer-brand p{color:var(--muted);font-size:0.85rem;margin-top:0.75rem;line-height:1.6}
+.footer-links h3,.footer-connect h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.footer-links nav{display:flex;flex-direction:column;gap:0.5rem}
+.footer-links a{color:#a0a0b5;text-decoration:none;font-size:0.9rem;transition:color 0.2s}.footer-links a:hover{color:var(--text)}
+.footer-socials{display:flex;gap:0.6rem;margin-bottom:1rem}
+.footer-socials a{width:38px;height:38px;border-radius:8px;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;color:white;transition:background 0.2s,transform 0.2s}
+.footer-socials a:hover{background:var(--red);transform:scale(1.1)}
+.footer-email{display:flex;align-items:center;gap:0.4rem;color:var(--muted);text-decoration:none;font-size:0.85rem;transition:color 0.2s}.footer-email:hover{color:var(--text)}
+.footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);text-align:center}
+.footer-bottom p{color:var(--muted);font-size:0.8rem}
+
+/* SOUND BUTTON */
+.sound-toggle{position:fixed;bottom:1.5rem;left:1.5rem;z-index:200;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid var(--border);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s,box-shadow 0.2s}
+.sound-toggle:hover{background:rgba(255,255,255,0.2);box-shadow:0 0 20px var(--glow-violet)}
+.sound-toggle.muted{opacity:0.45}
+#sound-toast{position:fixed;bottom:1.5rem;right:1.5rem;background:rgba(139,60,247,0.92);color:white;padding:0.6rem 1.2rem;border-radius:8px;font-size:0.82rem;font-weight:600;opacity:0;transform:translateY(10px);transition:opacity 0.3s,transform 0.3s;z-index:999;pointer-events:none}
+#sound-toast.show{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- Sound Toggle -->
+<button class="sound-toggle" id="sound-toggle" title="Toggle sound">
+  <svg id="snd-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+  <svg id="snd-off" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+</button>
+<div id="sound-toast"></div>
+
+<!-- Header -->
+<header id="header">
+  <div class="header-container">
+    <a href="#" class="logo">
+      <div class="logo-icon">S</div>
+      <span class="logo-text">SAZAKI ARTS</span>
+    </a>
+    <nav class="desktop-nav">
+      <a href="#artworks" class="nav-link">Artworks</a>
+      <a href="#videos" class="nav-link">Videos</a>
+      <a href="#shop" class="nav-link">Shop</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="https://www.youtube.com/@Sazaki-Arts" target="_blank" class="subscribe-btn snd" data-snd="subscribe">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/></svg>
+        Subscribe
+      </a>
+    </nav>
+    <button class="mobile-menu-btn" id="mmb">
+      <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mnav">
+    <a href="#artworks" class="nav-link">Artworks</a>
+    <a href="#videos" class="nav-link">Videos</a>
+    <a href="#shop" class="nav-link">Shop</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="https://www.youtube.com/@Sazaki-Arts" target="_blank" class="subscribe-btn snd" data-snd="subscribe">Subscribe</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section id="artworks" class="hero-section">
+  <div class="glow-bg"><div class="glow glow-1"></div><div class="glow glow-2"></div></div>
+  <div class="hero-container">
+    <div class="hero-title reveal">
+      <h1 class="main-title">SAZAKI ARTS</h1>
+      <p class="subtitle">Anime &amp; Cartoon Artwork Collection</p>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="stat-item"><div class="stat-number">2+</div><div class="stat-label">Years Creating</div></div>
+      <div class="stat-item"><div class="stat-number">LAKHS</div><div class="stat-label">YouTube Views</div></div>
+      <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Traditional Art</div></div>
+    </div>
+    <div class="carousel-wrapper reveal-scale">
+      <div class="carousel"><div class="carousel-track" id="ct">
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-01.jpg" alt="Artwork 1" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-02.jpg" alt="Artwork 2" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-03.jpg" alt="Artwork 3" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-04.jpg" alt="Artwork 4" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-05.jpg" alt="Artwork 5" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-06.jpg" alt="Artwork 6" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-07.jpg" alt="Artwork 7" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-08.jpg" alt="Artwork 8" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-09.jpg" alt="Artwork 9" loading="lazy"></div></div>
+        <div class="carousel-slide"><div class="artwork-card"><img src="assets/images/art-10.jpg" alt="Artwork 10" loading="lazy"></div></div>
+      </div></div>
+      <button class="carousel-btn prev-btn snd" id="pb" data-snd="click"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="carousel-btn next-btn snd" id="nb" data-snd="click"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+    <div class="carousel-dots" id="dots"></div>
+    <p class="scroll-hint">↓ Scroll to explore more</p>
+  </div>
+</section>
+
+<!-- My Story -->
+<section class="story-section">
+  <div class="glow-bg"><div class="glow glow-3"></div></div>
+  <div class="section-container">
+    <div class="section-header reveal"><h2>My Story</h2><div class="section-divider"></div></div>
+    <div class="story-card">
+      <div class="story-inner">
+        <div class="story-text reveal-left">
+          <h3>2 Years of Bringing Anime to Life</h3>
+          <p>I'm the creator behind Sazaki Arts — an anime and cartoon art channel where I bring characters to life using paper, pencil, and poster colors. No digital shortcuts. All traditional.</p>
+          <p>I've been at this for over 2 years now, building from zero to lakhs of views on YouTube Shorts. Now I'm levelling up with long-form videos too — full tutorials and behind-the-scenes content.</p>
+          <p>Whether you're an anime fan or an art lover, Sazaki Arts is built for you.</p>
+        </div>
+        <div class="story-milestones reveal-right">
+          <div class="milestone"><div class="milestone-icon m1">🎨</div><div class="milestone-text"><strong>Traditional Art Only</strong><span>Paper, pencil &amp; poster colors</span></div></div>
+          <div class="milestone"><div class="milestone-icon m2">📱</div><div class="milestone-text"><strong>YouTube Shorts Creator</strong><span>Lakhs of views &amp; growing</span></div></div>
+          <div class="milestone"><div class="milestone-icon m3">🛍️</div><div class="milestone-text"><strong>Ko-fi Shop</strong><span>Digital prints &amp; exclusive art</span></div></div>
+          <div class="milestone"><div class="milestone-icon m4">🚀</div><div class="milestone-text"><strong>Long-Form Coming Soon</strong><span>Full tutorials in the works</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Videos -->
+<section id="videos" class="videos-section">
+  <div class="section-container">
+    <div class="section-header reveal"><h2>Featured Videos</h2><div class="section-divider"></div><p>Watch the creative process in action</p></div>
+    <div class="video-carousel-wrapper">
+      <div class="video-carousel"><div class="video-track" id="vt">
+        <div class="video-slide"><div class="video-card" data-vid="sof-qzYasXQ"><img src="https://img.youtube.com/vi/sof-qzYasXQ/maxresdefault.jpg" alt="V1"><div class="video-overlay"></div><button class="play-btn snd" data-snd="play"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></button><iframe class="video-iframe" src="" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div></div>
+        <div class="video-slide"><div class="video-card" data-vid="sucHWXDgcOQ"><img src="https://img.youtube.com/vi/sucHWXDgcOQ/maxresdefault.jpg" alt="V2"><div class="video-overlay"></div><button class="play-btn snd" data-snd="play"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></button><iframe class="video-iframe" src="" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div></div>
+        <div class="video-slide"><div class="video-card" data-vid="qZXo-CaTWRs"><img src="https://img.youtube.com/vi/qZXo-CaTWRs/maxresdefault.jpg" alt="V3"><div class="video-overlay"></div><button class="play-btn snd" data-snd="play"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></button><iframe class="video-iframe" src="" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div></div>
+        <div class="video-slide"><div class="video-card" data-vid="qXxxtmHiN-M"><img src="https://img.youtube.com/vi/qXxxtmHiN-M/maxresdefault.jpg" alt="V4"><div class="video-overlay"></div><button class="play-btn snd" data-snd="play"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></button><iframe class="video-iframe" src="" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div></div>
+        <div class="video-slide"><div class="video-card" data-vid="5gTAQyqJQmY"><img src="https://img.youtube.com/vi/5gTAQyqJQmY/maxresdefault.jpg" alt="V5"><div class="video-overlay"></div><button class="play-btn snd" data-snd="play"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></button><iframe class="video-iframe" src="" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div></div>
+        <div class="video-slide"><div class="video-card" data-vid="5EVGrKk0vWg"><img src="https://img.youtube.com/vi/5EVGrKk0vWg/maxresdefault.jpg" alt="V6"><div class="video-overlay"></div><button class="play-btn snd" data-snd="play"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></button><iframe class="video-iframe" src="" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div></div>
+        <div class="video-slide"><div class="video-card" data-vid="LH9O7zVPrZs"><img src="https://img.youtube.com/vi/LH9O7zVPrZs/maxresdefault.jpg" alt="V7"><div class="video-overlay"></div><button class="play-btn snd" data-snd="play"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></button><iframe class="video-iframe" src="" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div></div>
+      </div></div>
+      <button class="carousel-btn video-prev-btn snd" id="vpb" data-snd="click"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="carousel-btn video-next-btn snd" id="vnb" data-snd="click"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+    <div class="video-cta reveal">
+      <a href="https://www.youtube.com/@Sazaki-Arts" target="_blank" class="cta-btn btn-youtube snd" data-snd="subscribe">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/></svg>
+        Watch More on YouTube
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Shop -->
+<section id="shop" class="shop-section">
+  <div class="glow-bg"><div class="glow glow-3"></div></div>
+  <div class="section-container">
+    <div class="section-header reveal"><h2>Ko-fi Shop</h2><div class="section-divider"></div><p>Support the art and get exclusive prints</p></div>
+    <div class="shop-card reveal-scale">
+      <div class="shop-embed"><iframe src="https://ko-fi.com/sazakiarts/?hidefeed=true&widget=true&embed=true" title="Ko-fi"></iframe></div>
+      <div class="shop-actions">
+        <a href="https://ko-fi.com/sazakiarts/shop" target="_blank" class="cta-btn btn-primary snd" data-snd="shop">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Visit Full Shop
+        </a>
+        <a href="https://ko-fi.com/sazakiarts" target="_blank" class="cta-btn btn-ghost snd" data-snd="heart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Support on Ko-fi
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="about-section">
+  <div class="section-container">
+    <div class="section-header reveal"><h2>Welcome to Sazaki Arts</h2><div class="section-divider"></div></div>
+    <div class="about-card reveal-scale">
+      <div class="about-intro"><p>At Sazaki Arts, I bring anime and cartoon characters to life through dynamic drawings and paintings. My fast-paced YouTube Shorts showcase the creative process in an engaging way for art lovers and anime fans alike.</p></div>
+      <div class="about-features">
+        <h3>What You'll Find Here</h3>
+        <div class="features-grid">
+          <div class="feature-card reveal"><div class="feature-icon icon-1"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><h4>Anime &amp; Cartoon Art</h4><p>Sketching, inking, and painting</p></div>
+          <div class="feature-card reveal"><div class="feature-icon icon-2"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div><h4>Creative Shorts</h4><p>Trend-based content</p></div>
+          <div class="feature-card reveal"><div class="feature-icon icon-3"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><h4>Sazaki Curios</h4><p>Exclusive art goods &amp; prints</p></div>
+        </div>
+      </div>
+      <div class="about-collab">
+        <h3>Business &amp; Collaborations</h3>
+        <p>I'm open to brand collaborations, sponsorships, and business opportunities in art, creativity, and digital content. Let's work together!</p>
+      </div>
+      <div class="about-contact">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b3cf7" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:sazakiarts@gmail.com">sazakiarts@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="glow-bg"><div class="glow glow-1" style="opacity:.5"></div><div class="glow glow-2" style="opacity:.4"></div></div>
+  <div class="cta-container">
+    <h2 class="cta-title reveal"><span>Original art?</span><span class="gradient-text">Then subscribe.</span></h2>
+    <div class="cta-buttons reveal">
+      <a href="https://www.youtube.com/@Sazaki-Arts" target="_blank" class="cta-btn btn-youtube large snd" data-snd="subscribe">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/></svg>
+        Subscribe on YouTube
+      </a>
+      <a href="https://ko-fi.com/sazakiarts" target="_blank" class="cta-btn btn-kofi large snd" data-snd="shop">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Support on Ko-fi
+      </a>
+    </div>
+    <div class="social-section reveal">
+      <p class="social-text">Follow on social media</p>
+      <div class="social-links">
+        <a href="#" class="social-btn snd" data-snd="click"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a>
+        <a href="#" class="social-btn snd" data-snd="click"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.76a4.85 4.85 0 0 1-1-.07z"/></svg>TikTok</a>
+        <a href="#" class="social-btn snd" data-snd="click"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>X</a>
+        <a href="#" class="social-btn snd" data-snd="click"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Threads</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><div class="logo-icon">S</div><span class="logo-text">SAZAKI ARTS</span></div>
+        <p>Anime &amp; cartoon artwork. 2+ years of traditional art — no digital shortcuts.</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <nav><a href="#artworks">Artworks</a><a href="#videos">Videos</a><a href="#shop">Shop</a><a href="#about">About</a></nav>
+      </div>
+      <div class="footer-connect">
+        <h3>Connect</h3>
+        <div class="footer-socials">
+          <a href="https://www.youtube.com/@Sazaki-Arts" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
+        </div>
+        <a href="mailto:sazakiarts@gmail.com" class="footer-email"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>sazakiarts@gmail.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2025 Sazaki Arts. All rights reserved. Made with ❤️ for anime fans.</p></div>
+  </div>
+</footer>
+
+<script>
+// ===== AUDIO =====
+let AC = null, soundOn = true;
+function ac(){if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();return AC;}
+function tone(f,t,dur,g,decay){
+  try{
+    const c=ac(),o=c.createOscillator(),v=c.createGain();
+    o.connect(v);v.connect(c.destination);
+    o.type=t;o.frequency.value=f;
+    v.gain.setValueAtTime(g,c.currentTime);
+    v.gain.exponentialRampToValueAtTime(0.001,c.currentTime+decay);
+    o.start();o.stop(c.currentTime+dur);
+  }catch(e){}
+}
+const sounds={
+  click:()=>{tone(600,'sine',0.08,0.15,0.08);tone(900,'sine',0.05,0.07,0.05);},
+  subscribe:()=>{
+    setTimeout(()=>tone(440,'sine',0.15,0.18,0.15),0);
+    setTimeout(()=>tone(554,'sine',0.15,0.18,0.15),80);
+    setTimeout(()=>tone(659,'sine',0.2,0.2,0.25),160);
+    setTimeout(()=>tone(880,'sine',0.25,0.16,0.35),240);
+  },
+  play:()=>{tone(300,'sine',0.05,0.2,0.05);setTimeout(()=>tone(500,'triangle',0.2,0.18,0.2),60);},
+  shop:()=>{tone(800,'square',0.04,0.08,0.04);setTimeout(()=>tone(1200,'sine',0.15,0.16,0.15),50);setTimeout(()=>tone(1600,'sine',0.1,0.1,0.2),120);},
+  heart:()=>{tone(220,'sine',0.08,0.18,0.08);setTimeout(()=>tone(180,'sine',0.12,0.15,0.12),100);}
+};
+function playSound(name){if(soundOn&&sounds[name])sounds[name]();}
+
+// Sound toggle
+const stBtn=document.getElementById('sound-toggle');
+const toast=document.getElementById('sound-toast');
+stBtn.addEventListener('click',()=>{
+  soundOn=!soundOn;
+  document.getElementById('snd-on').style.display=soundOn?'':'none';
+  document.getElementById('snd-off').style.display=soundOn?'none':'';
+  stBtn.classList.toggle('muted',!soundOn);
+  toast.textContent=soundOn?'🔊 Sound ON':'🔇 Sound OFF';
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2000);
+  if(soundOn)sounds.click();
+});
+
+// Ripple + sound on all .snd elements
+document.querySelectorAll('.snd').forEach(el=>{
+  el.addEventListener('click',function(e){
+    playSound(this.dataset.snd||'click');
+    const r=document.createElement('span');
+    r.className='ripple';
+    const rect=this.getBoundingClientRect();
+    const sz=Math.max(rect.width,rect.height);
+    r.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX-rect.left-sz/2}px;top:${e.clientY-rect.top-sz/2}px`;
+    this.appendChild(r);
+    setTimeout(()=>r.remove(),600);
+  });
+});
+
+// ===== PARTICLES =====
+const cv=document.getElementById('particles');
+const px=cv.getContext('2d');
+function rsz(){cv.width=innerWidth;cv.height=innerHeight;}rsz();
+window.addEventListener('resize',rsz);
+const pts=Array.from({length:60},()=>({
+  x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+  r:Math.random()*1.5+0.3,dx:(Math.random()-.5)*0.3,dy:-Math.random()*0.35-0.1,
+  a:Math.random()*0.5+0.1,c:['#e040a0','#8b3cf7','#3b82f6'][Math.floor(Math.random()*3)]
+}));
+(function anim(){
+  px.clearRect(0,0,cv.width,cv.height);
+  pts.forEach(p=>{
+    px.beginPath();px.arc(p.x,p.y,p.r,0,Math.PI*2);
+    px.fillStyle=p.c;px.globalAlpha=p.a;px.fill();
+    p.x+=p.dx;p.y+=p.dy;
+    if(p.y<-5){p.y=innerHeight+5;p.x=Math.random()*innerWidth;}
+    if(p.x<0)p.x=innerWidth;if(p.x>innerWidth)p.x=0;
+  });
+  px.globalAlpha=1;requestAnimationFrame(anim);
+})();
+
+// ===== SCROLL REVEAL =====
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>obs.observe(el));
+
+// ===== HEADER =====
+window.addEventListener('scroll',()=>document.getElementById('header').classList.toggle('scrolled',scrollY>50));
+
+// ===== MOBILE MENU =====
+const mmb=document.getElementById('mmb'),mnav=document.getElementById('mnav');
+mmb.addEventListener('click',()=>{mmb.classList.toggle('active');mnav.classList.toggle('active');playSound('click');});
+mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mmb.classList.remove('active');mnav.classList.remove('active');}));
+
+// ===== ARTWORK CAROUSEL =====
+const ct=document.getElementById('ct');
+const slides=[...document.querySelectorAll('.carousel-slide')];
+const dotsEl=document.getElementById('dots');
+let cur=0,at;
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>{go(i);resetAt();playSound('click');};dotsEl.appendChild(d);
+});
+function updDots(){document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));}
+function go(n){cur=(n+slides.length)%slides.length;ct.style.transform=`translateX(-${cur*slides[0].offsetWidth}px)`;updDots();}
+document.getElementById('nb').onclick=()=>{go(cur+1);resetAt();};
+document.getElementById('pb').onclick=()=>{go(cur-1);resetAt();};
+function startAt(){at=setInterval(()=>go(cur+1),4000);}
+function resetAt(){clearInterval(at);startAt();}
+startAt();
+window.addEventListener('resize',()=>go(cur));
+// 3D tilt
+document.querySelectorAll('.artwork-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const rx=((e.clientY-r.top)/r.height-.5)*18;
+    const ry=((e.clientX-r.left)/r.width-.5)*-18;
+    card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.03,1.03,1.03)`;
+    card.style.boxShadow=`${-ry*2}px ${rx*2}px 60px rgba(139,60,247,0.5),0 30px 80px rgba(0,0,0,0.7)`;
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='';card.style.boxShadow='';});
+});
+// Swipe
+let tx=0;
+ct.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+ct.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){go(d>0?cur+1:cur-1);resetAt();}},{passive:true});
+
+// ===== VIDEO CAROUSEL =====
+const vt=document.getElementById('vt');
+const vs=[...document.querySelectorAll('.video-slide')];
+let vc=0;
+function gv(n){vc=(n+vs.length)%vs.length;vt.style.transform=`translateX(-${vc*vs[0].offsetWidth}px)`;}
+document.getElementById('vnb').onclick=()=>gv(vc+1);
+document.getElementById('vpb').onclick=()=>gv(vc-1);
+window.addEventListener('resize',()=>gv(vc));
+document.querySelectorAll('.video-card').forEach(card=>{
+  card.querySelector('.play-btn').addEventListener('click',()=>{
+    card.querySelector('.video-iframe').src=`https://www.youtube.com/embed/${card.dataset.vid}?autoplay=1`;
+    card.classList.add('playing');
+  });
+});
+let vtx=0;
+vt.addEventListener('touchstart',e=>vtx=e.touches[0].clientX,{passive:true});
+vt.addEventListener('touchend',e=>{const d=vtx-e.changedTouches[0].clientX;if(Math.abs(d)>50)gv(d>0?vc+1:vc-1);},{passive:true});
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});
+});
+</script>
+</body>
+</html>
