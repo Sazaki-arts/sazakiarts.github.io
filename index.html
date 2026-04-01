@@ -7,7 +7,9 @@
   <div class="pop-in" id="hero-logo-container">
     <img src="image12.jpg" alt="Logo" class="alive-logo">
   </div>
-  
+  <div class="artwork-full" id="artFull">
+  <img id="fullImg">
+  </div>
   <h1 class="main-title pop-in" id="hero-name">SAZAKI ARTS</h1>
   <p class="subtitle reveal">Anime &amp; Cartoon Artwork Collection</p>
 </div>
@@ -453,7 +455,51 @@ body {
     </div>
   </div>
 </section>
+/* cinematic artwork upgrade */
 
+.artwork-card{
+transition:
+transform .6s cubic-bezier(.2,.8,.2,1),
+box-shadow .5s ease,
+filter .4s ease;
+}
+
+.artwork-card:hover{
+filter:brightness(1.1);
+box-shadow:
+0 30px 80px rgba(0,0,0,.8),
+0 0 60px rgba(139,60,247,.4);
+}
+
+.artwork-full{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+opacity:0;
+pointer-events:none;
+transition:.5s;
+}
+
+.artwork-full img{
+max-width:90%;
+max-height:90%;
+border-radius:20px;
+transform:scale(.9);
+transition:.5s;
+}
+
+.artwork-full.show{
+opacity:1;
+pointer-events:auto;
+}
+
+.artwork-full.show img{
+transform:scale(1);
+}
 <!-- Footer -->
 <footer class="footer">
   <div class="footer-container">
@@ -628,6 +674,48 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 </script>
 </body>
 </html>
+// fullscreen cinematic click
+
+const full=document.getElementById("artFull")
+const fullImg=document.getElementById("fullImg")
+
+document.querySelectorAll(".artwork-card img")
+.forEach(img=>{
+
+img.addEventListener("click",()=>{
+
+full.classList.add("show")
+fullImg.src=img.src
+
+})
+
+})
+
+full.addEventListener("click",()=>{
+full.classList.remove("show")
+})
+
+
+// smooth floating motion
+
+document.querySelectorAll(".artwork-card")
+.forEach((card,i)=>{
+
+card.style.transition="transform .6s ease"
+
+window.addEventListener("mousemove",e=>{
+
+const speed=(i+1)*0.002
+
+const x=(window.innerWidth/2-e.clientX)*speed
+const y=(window.innerHeight/2-e.clientY)*speed
+
+card.style.transform+=` translate(${x}px,${y}px)`
+
+})
+
+})
+
 // Dynamic Pop-up and Background Change
 window.addEventListener('scroll', () => {
   const logo = document.getElementById('hero-logo-container');
